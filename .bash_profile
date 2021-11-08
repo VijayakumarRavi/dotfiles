@@ -1,6 +1,7 @@
 #
 # ~/.bash_profile
 #
+export PATH=$PATH:/home/vijay/.local/bin
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
