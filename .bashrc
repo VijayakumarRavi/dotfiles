@@ -80,8 +80,8 @@ alias gc='git clone --depth=1'
 alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 dotAuto() {
-    if [ -z "$1" ]; then
-        printf "\nAdd the file u want to commit \n\n USAGE:\n\tdotAuto \"filename1 filename2\""
+    if [[ -z "$1" || "$1" == "-h" ]]; then
+        printf "\nAutomated commend to manage your dotfiles bare repo\nIt commits the changes and push them to Github.com\n\n USAGE:\n\tdotAuto \"filename1 filename2\"\e[0m"
     else
         addfs=$1
         for file in $addfs
