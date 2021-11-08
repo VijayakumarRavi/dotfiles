@@ -1,0 +1,1 @@
+/home/vijay/.config/x11/xinitrc
