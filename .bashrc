@@ -84,12 +84,14 @@ dotAuto() {
         printf "\nAdd the file u want to commit \n\n USAGE:\n\tdotAuto \"filename1 filename2\""
     else
         addfs=$1
-        for file in $addfs 
+        for file in $addfs
         do
             echo $file
             sleep 1
             dot add "$file"
         done
+        echo "sleep"
+        sleep 1
         dot commit -m "$(date)"
         dot push origin
         printf "\e[1;32m\n\nPending files \n\n\e[0m"
