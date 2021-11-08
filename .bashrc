@@ -79,6 +79,25 @@ alias gs='git status'
 alias gc='git clone --depth=1'
 alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
+dotAuto() {
+    if [ -z "$1" ]; then
+        printf "\nAdd the file u want to commit \n\n USAGE:\n\tdotAuto \"filename1 filename2\""
+    else
+        addfs=$1
+        for file in $addfs 
+        do
+            echo $file
+            sleep 1
+            dot add "$file"
+        done
+        dot commit -m "$(date)"
+        dot push origin
+        printf "\e[1;32m\n\nPending files \n\n\e[0m"
+        printf "\e[1;35m"
+        dot ls-files -m
+    fi
+}
+
 git_auto() {
 	add=$1
 	com=$2
