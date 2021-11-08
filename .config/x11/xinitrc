@@ -1,0 +1,15 @@
+#!/bin/sh
+
+.local/bin/set_wallpaper /home/vijay/Pictures/Landscape/pexels-cátia-matos-1072179.jpg &
+.local/bin/dwm_bar &
+xcompmgr &
+dunst &
+xset r rate 300 50 &
+sxhkd &
+xmodmap ~/.config/xmodmap/Xmodmap &
+unclutter &
+
+xrandr --output VGA-1 --mode 1440x900 --rate 74.98
+xrandr --output HDMI-1 --mode 1920x1080 --rate 74.98
+
+exec dwm > /dev/null 2>&1
