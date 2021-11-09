@@ -23,8 +23,9 @@ function _exit()              # Function to run upon exit of shell.
 }
 trap _exit EXIT
 
-# PS1="\[\033[32m\]\w\n\e[0;38m[\e[0;35m\u\e[1;36m@\e[0;38m\h\e[0;35m]\e[1;36m ∮ \[\033[0m\]"
-PS1="\n🍎\e[0;34m \033[1m$(ifconfig $(route -n | grep ^0.0.0.0 | awk '{print $NF}') | grep inet | grep -v inet6 | awk '{print $2}') (\W) : \033[0m"
+PS1="\[\033[32m\]\w\n\e[0;38m[\e[0;35m\u\e[1;36m@\e[0;38m\h\e[0;35m]\e[1;36m ∮ \[\033[0m\]"
+source ~/.git-prompt.sh ~/.git-completion.bash
+# PS1="\n🍎\e[0;34m \033[1m$(ifconfig $(route -n | grep ^0.0.0.0 | awk '{print $NF}') | grep inet | grep -v inet6 | awk '{print $2}') (\W)$(__git_ps1 " [%s]") : \033[0m"
 
 # System Aliases
 alias rm='rm -vr'
