@@ -32,7 +32,7 @@ alias rm='rm -vr'
 alias cp='cp -vr'
 alias mv='mv -v'
 alias mkdir='mkdir -pv'
-alias SS='doas systemctl'
+alias SS='sudo systemctl'
 alias ls='ls -hAN --color=auto --group-directories-first'
 alias ll='ls -lAv --color=auto --group-directories-first'
 alias grep='grep --color=auto'
@@ -51,7 +51,7 @@ alias ..='cd ..'
 alias ...='cd ..; cd ..'
 alias n='nvim'
 alias sn='sudo nvim'
-alias vim='nvim'
+# alias vim='nvim'
 
 # Edit congfis
 alias nrc='nvim ~/.config/nvim/init.lua'
@@ -60,10 +60,10 @@ alias i3con='nvim ~/.config/i3/config'
 alias loadbash='source ~/.bashrc'
 alias notes='nvim ~/.notes.txt'
 
-alias p='doas pacman'
+alias p='sudo pacman'
 alias y='yay'
-alias orphan='doas pacman -Rs $(pacman -Qqtd)' # Removes orphan packages
-alias mirrorlist='doas reflector -a 6 -c IN --save /etc/pacman.d/mirrorlist'
+alias orphan='sudo pacman -Rs $(pacman -Qqtd)' # Removes orphan packages
+alias mirrorlist='sudo cp -v "/etc/pacman.d/mirrorlist" "/etc/pacman.d/mirrorlist.backup" && sudo reflector -a 6 -c IN --save /etc/pacman.d/mirrorlist'
 
 alias w='/home/vijay/git/dot/.config/unsplash.sh'
 
@@ -99,7 +99,7 @@ git_auto() {
 	echo "Comm-msg: " $com 
 	sleep 2
 	git add $add
-	git commit -m "$com ${date}"
+    git commit -m "$com $(date)"
 	git push origin
 	printf "\e[1;32m\n\nPending files \n\n\e[0m"
 	printf "\e[1;35m"
