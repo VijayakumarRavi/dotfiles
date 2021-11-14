@@ -1,12 +1,13 @@
 #!/bin/sh
 
-/home/vijay/.local/bin/set_wallpaper /home/vijay/Pictures/wallpapers/wallhaven-8oky1j.jpg &
+/home/vijay/.local/bin/set_wallpaper /home/vijay/Pictures/Random/wallhaven-8oky1j.jpg &
 # /home/vijay/.local/bin/dwm_bar &
 slstatus &
 xcompmgr &
 dunst &
 xset r rate 300 50 &
 sxhkd &
+numlockx on
 xmodmap ~/.config/xmodmap/Xmodmap &
 unclutter &
 
