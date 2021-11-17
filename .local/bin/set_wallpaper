@@ -3,7 +3,7 @@
 # Dependencies:
 # convert wal xdotool xwallpaper 
 
-wall_dir=~/Pictures/
+wall_dir=/usr/share/backgrounds/vijay-wallpapers
 
 if [ -z "$1" ]; then
   wall="$(find "$wall_dir" -type f -name "*.jpg" -o -name "*.png" | shuf -n1)"
@@ -16,5 +16,4 @@ xwallpaper --zoom ~/.local/share/bg.jpg
 wal -c
 wal -i ~/.local/share/bg.jpg
 xdotool key super+F5
-/home/vijay/.local/src/wal-telegram/wal-telegram
 # pywal-discord
