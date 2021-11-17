@@ -15,6 +15,8 @@ set autoindent
 set laststatus=2
 set encoding=UTF-8
 set t_Co=256 
+set undofile                      " Enable undo after reopening
+set undodir='/tmp'                " Location to save the undo file
 
 " Enable true colors
 if exists('+termguicolors')
@@ -129,9 +131,9 @@ else
   set background=dark
 endif
 
-let g:gruvbox_transparent_bg=1
-colorscheme gruvbox
-let g:airline_theme='gruvbox'
+let g:onedark_transparent_bg=1
+colorscheme onedark
+let g:airline_theme='onedark'
 
 " Must come after colorscheme command
 " Ensure the any colorscheme has transparent bg
@@ -188,30 +190,6 @@ let g:airline_right_sep = ''
 let g:fzf_colors= {
       \  'border': ['fg', 'Type' ],
       \  'gutter': ['fg', 'Type' ] }
-
-" vim-jsx-pretty
-hi jsxAttrib ctermfg=3*
-hi jsxComponentName ctermfg=4*
-hi jsxTagName ctermfg=4*
-hi jsxPunct ctermfg=3*
-hi jsObjectProp ctermfg=3*
-hi jsxCloseString ctermfg=3*
-
-" typescript-vim
-let g:typescript_indent_disable = 1
-hi javaScriptLineComment ctermfg=4*
-
-" vim-go
-let g:go_highlight_structs = 1 
-let g:go_highlight_methods = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_variable_declarations = 1
-let g:go_highlight_format_strings = 1
-let g:go_highlight_string_spellcheck = 1
-let g:go_highlight_types = 1
-let g:go_highlight_function_calls = 1
 
 " vim-prettier
 let g:prettier#autoformat = 0
@@ -286,3 +264,24 @@ function LineUp()
   normal! pjdd
 endfunction
 command! LU call LineUp()
+
+" commenting_blocks_of_code
+
+augroup commenting_blocks_of_code
+  autocmd!
+  autocmd FileType c,cpp,java,scala let b:comment_leader = '//  '
+  autocmd FileType bash,ruby,python   let b:comment_leader = '#  '
+  autocmd FileType conf,fstab,sh    let b:comment_leader = '#  '
+  autocmd FileType tex              let b:comment_leader = '%  '
+  autocmd FileType mail             let b:comment_leader = '>  '
+  autocmd FileType vim              let b:comment_leader = '"  '
+  autocmd FileType lua              let b:comment_leader = '--  '
+augroup END
+noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
+
+"  Remember cursor position --------
+" Go to the last cursor location when a file is opened, unless this is a
+" git commit (in which case it's annoying)
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") && &filetype != "gitcommit" | execute("normal `\"") | endif

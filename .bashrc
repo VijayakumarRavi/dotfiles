@@ -58,7 +58,6 @@ alias ..='cd ..'
 alias ...='cd ..; cd ..'
 alias n='nvim'
 alias sn='sudo nvim'
-# alias vim='nvim'
 
 # Edit congfis
 alias nrc='nvim ~/.config/nvim/init.lua'
@@ -99,7 +98,7 @@ dotAuto() {
     fi
 }
 
-git_auto() {
+gitAuto() {
 	add=$1
 	com=$2
 	echo "Add-file: " $add
