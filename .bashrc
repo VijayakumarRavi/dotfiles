@@ -13,6 +13,13 @@ set -o vi
 export VISUAL="/usr/bin/nvim"
 export EDITOR="$VISUAL"
 
+# Man page with vim
+export MANPAGER="/bin/sh -c \"unset PAGER;col -b -x | \
+    vim -R -c 'set ft=man norelativenumber nolist' \
+    -c 'map q :q<CR>' \
+    -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
+    -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
+
 #neofetch
 echo -e "\e[0;33mVanakkam da Mapla\e[0;31m\e[0;32m \n"
 #echo -e "\e[38;5;45mUNIX IS VERY SIMPLE \e[1;92mIT JUST NEEDS A\nGENIUS TO UNDERSTAND ITS SIMPLICITY\n 		\e[38;5;45m-By Dennis Ritchie\e[m"
