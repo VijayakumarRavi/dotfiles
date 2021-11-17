@@ -8,6 +8,10 @@ dunst &
 xset r rate 300 50 &
 sxhkd &
 numlockx on
+bluetoothctl power on &
+bluetoothctl discoverable on &
+bluetoothctl scan on &
+bluetoothctl pairable on &
 xmodmap ~/.config/xmodmap/Xmodmap &
 unclutter &
 
