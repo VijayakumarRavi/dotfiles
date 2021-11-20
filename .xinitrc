@@ -1,4 +1,5 @@
 #!/bin/sh
+export GDK_BACKEND=x11
 
 /home/vijay/.local/bin/set_wallpaper   "/usr/share/backgrounds/vijay-wallpapers/Super Heros/wallpaperflare.com_wallpaper (53).jpg" &
 # /home/vijay/.local/bin/dwm_bar &
