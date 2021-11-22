@@ -80,9 +80,14 @@ alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 dotAuto() {
     if [ "$1" == "-h" ]; then
-        printf "\nAutomated commend to manage your dotfiles bare repo\nIt commits the changes and push them to Github.com\n\n USAGE:\nJust Run this bitch"
-    else
-	addfs=$(dot ls-files -m)
+        printf "\nAutomated commend to manage your dotfiles bare repo\nIt commits the changes and push them to Github.com\n\n USAGE:\n\tdotAuto \"filename1 filename2\"\e[0m"
+
+		elif [[ -n "$1" ]] && [[ "$1" != "-h" ]]; then	
+        printf "\e[1;32m\n\nPending files \n\n\e[0m"
+        printf "\e[1;35m"
+        dot ls-files -m
+		else
+				addfs=$(dot ls-files -m)
         for file in $addfs
         do
             echo $file
@@ -92,9 +97,6 @@ dotAuto() {
         sleep 1
         dot commit -m "$(date)"
         dot push origin
-        # printf "\e[1;32m\n\nPending files \n\n\e[0m"
-        # printf "\e[1;35m"
-        # dot ls-files -m
     fi
 }
 
