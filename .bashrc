@@ -79,10 +79,10 @@ alias gc='git clone --depth=1'
 alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 dotAuto() {
-    if [[ -z "$1" || "$1" == "-h" ]]; then
+    if [ "$1" == "-h" ]; then
         printf "\nAutomated commend to manage your dotfiles bare repo\nIt commits the changes and push them to Github.com\n\n USAGE:\n\tdotAuto \"filename1 filename2\"\e[0m"
     else
-        addfs=$1
+	addfs=$(dot ls-files -m)
         for file in $addfs
         do
             echo $file
@@ -92,9 +92,9 @@ dotAuto() {
         sleep 1
         dot commit -m "$(date)"
         dot push origin
-        printf "\e[1;32m\n\nPending files \n\n\e[0m"
-        printf "\e[1;35m"
-        dot ls-files -m
+        # printf "\e[1;32m\n\nPending files \n\n\e[0m"
+        # printf "\e[1;35m"
+        # dot ls-files -m
     fi
 }
 
@@ -105,7 +105,7 @@ gitAuto() {
 	echo "Comm-msg: " $com 
 	sleep 2
 	git add $add
-    git commit -m "$com $(date)"
+	git commit -m "$com $(date)"
 	git push origin
 	printf "\e[1;32m\n\nPending files \n\n\e[0m"
 	printf "\e[1;35m"
