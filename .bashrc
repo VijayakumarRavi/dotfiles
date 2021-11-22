@@ -80,7 +80,7 @@ alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 dotAuto() {
     if [ "$1" == "-h" ]; then
-        printf "\nAutomated commend to manage your dotfiles bare repo\nIt commits the changes and push them to Github.com\n\n USAGE:\n\tdotAuto \"filename1 filename2\"\e[0m"
+        printf "\nAutomated commend to manage your dotfiles bare repo\nIt commits the changes and push them to Github.com\n\n USAGE:\nJust Run this bitch"
     else
 	addfs=$(dot ls-files -m)
         for file in $addfs
