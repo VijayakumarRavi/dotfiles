@@ -18,6 +18,40 @@ set t_Co=256
 set undofile                      " Enable undo after reopening
 set undodir='/tmp'                " Location to save the undo file
 
+filetype plugin indent on
+
+set clipboard+=unnamedplus
+let windows = has('win32') || has('win64')
+if windows
+  set clipboard=unnamed
+endif
+let g:GuiInternalClipboard=1
+set autoread autowrite
+
+" formatting
+set noexpandtab " http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/
+set tabstop=2 shiftwidth=2 softtabstop=2
+set autoindent smartindent
+set encoding=utf-8 nobomb
+set whichwrap+=<,>,[,]
+set virtualedit=block
+
+" completion
+set wildmenu wildmode=longest,full
+set wildignore+=.hg,.git,.bzr,.svn " Version control
+set wildignore+=*.aux,*.out,*.toc  " LaTeX
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg,*.webp,*.otf,*.ttf,*.eot,*.woff
+set wildignore+=*.luac,*.pyc,*.rbc,*.class,classes,*.min.*
+set wildignore+=*.annot,*.cmi,*.cmo,*.cmt,*.cmti,*.cmx,*.dep " OCaml
+set wildignore+=*.o,*.so,*.dylib,*.obj,*.exe,*.dll,*.manifest
+set wildignore+=*.spl,*.sw?
+set wildignore+=.DS_Store,Thumbs.db
+set wildignore+=target,node_modules,build,dist,venv
+set wildignore+=.cabal-sandbox,.hpc,.stack-work,__pycache__
+set wildignore+=platforms,plugins
+
+
+
 " Enable true colors
 if exists('+termguicolors')
   " Necessary when using tmux
@@ -117,6 +151,8 @@ call plug#begin('~/.vim/plugged')
 
     " Rust
     Plug 'rust-lang/rust.vim'
+		Plug 'rust-lang/rls'
+		Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
     " Prettifier
     Plug 'prettier/vim-prettier', {
@@ -266,11 +302,10 @@ endfunction
 command! LU call LineUp()
 
 " commenting_blocks_of_code
-
 augroup commenting_blocks_of_code
   autocmd!
   autocmd FileType c,cpp,java,scala let b:comment_leader = '//  '
-  autocmd FileType bash,ruby,python   let b:comment_leader = '#  '
+  autocmd FileType bash,ruby,python let b:comment_leader = '#  '
   autocmd FileType conf,fstab,sh    let b:comment_leader = '#  '
   autocmd FileType tex              let b:comment_leader = '%  '
   autocmd FileType mail             let b:comment_leader = '>  '
@@ -285,3 +320,51 @@ noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<
 " Go to the last cursor location when a file is opened, unless this is a
 " git commit (in which case it's annoying)
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") && &filetype != "gitcommit" | execute("normal `\"") | endif
+
+
+" Misc
+" https://stackoverflow.com/questions/4292733/vim-creating-parent-directories-on-save
+function s:MkNonExDir(file, buf)
+	if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+		let dir=fnamemodify(a:file, ':h')
+		if !isdirectory(dir)
+			call mkdir(dir, 'p')
+		endif
+	endif
+endfunction
+augroup BWCCreateDir
+	autocmd!
+	autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+augroup END
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+			\ pumvisible() ? "\<C-n>" :
+			\ <SID>check_back_space() ? "\<TAB>" :
+			\ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>

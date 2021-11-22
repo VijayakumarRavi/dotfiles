@@ -13,7 +13,7 @@ fi
 
 convert "$wall" ~/.local/share/bg.jpg
 xwallpaper --zoom ~/.local/share/bg.jpg
-wal -c
-wal -i ~/.local/share/bg.jpg
-xdotool key super+F5
+# wal -c
+# wal -i ~/.local/share/bg.jpg
+# xdotool key super+F5
 # pywal-discord

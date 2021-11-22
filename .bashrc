@@ -147,3 +147,4 @@ aur(){ curl  -O https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz && tar
 ((_ble_bash)) && ble-attach
 
 # alias luamake=/home/vijay/git/lua-language-server/3rd/luamake/luamake
+. "$HOME/.cargo/env"
