@@ -20,4 +20,4 @@ unclutter &
 xrandr --output VGA-1 --mode 1440x900 --rate 74.98
 xrandr --output HDMI-1 --mode 1920x1080 --rate 74.98
 
-exec dwm > /dev/null 2>&1
+exec i3 > /dev/null 2>&1
