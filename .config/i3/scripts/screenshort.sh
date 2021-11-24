@@ -25,17 +25,15 @@ EOF
 
 if [ "${1}" == '-h'  ]; then
     help_and_exit
-elif [ "${1:0:1}" == '-' ]; then
-    if [ "${1}" != '-s' ]; then
-        help_and_exit "error: unknown option ${1}"  
-    fi
+elif [ "${1}" == '-s' ]; then
     base_folder="${2}"
+    params="$(xdotool selectwindow)"
 else
     base_folder="${1}"
-    params="-window root"
-fi  
+    params="root"
+fi
 
 file_path=${base_folder}$( date '+%Y-%m-%d_%H-%M-%S' )_screenshot.png
-import ${params} ${file_path}
+import -window ${params} ${file_path}
 xclip -selection clipboard -target image/png -i < ${file_path}
 
