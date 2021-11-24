@@ -77,7 +77,7 @@ cdn.jsdelivr.net:HSTS	3	18955	1669284769790,1,1,2
 api.bitwarden.com:HSTS	7	18955	1669295300146,1,1,2
 bitwarden.com^partitionKey=%28http%2Cbitwarden.com%29:HSTS	0	18948	1668692001950,1,0,2
 www.zee5.com^partitionKey=%28http%2Czee5.com%29:HSTS	0	18952	1653059989794,1,1,2
-github.com^partitionKey=%28http%2Cgithub.com%29:HSTS	6	18955	1669295786586,1,1,2
+github.com^partitionKey=%28http%2Cgithub.com%29:HSTS	6	18955	1669296255715,1,1,2
 api.github.com^partitionKey=%28http%2Cgithub.com%29:HSTS	0	18948	1668691971519,1,1,2
 github-releases.githubusercontent.com^partitionKey=%28http%2Cgithub-releases.githubusercontent.com%29:HSTS	0	18955	1669264325830,1,0,2
 location.services.mozilla.com:HSTS	0	18948	1668691152966,1,1,2
