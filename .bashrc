@@ -54,6 +54,8 @@ alias q='exit'
 alias :q='exit'
 alias c='clear'
 alias r='ranger'
+alias ~='cd ~'
+alias .='cd -'
 alias ..='cd ..'
 alias ...='cd ..; cd ..'
 alias n='nvim'
@@ -69,7 +71,7 @@ alias notes='nvim ~/.notes.txt'
 alias p='sudo pacman'
 alias y='yay'
 alias orphan='sudo pacman -Rs $(pacman -Qqtd)' # Removes orphan packages
-alias mirrorlist='sudo cp -v "/etc/pacman.d/mirrorlist" "/etc/pacman.d/mirrorlist.backup" && sudo reflector -a 6 -c IN --save /etc/pacman.d/mirrorlist'
+alias mirrorlist='sudo cp -v "/etc/pacman.d/mirrorlist" "/etc/pacman.d/mirrorlist.backup" && sudo reflector --sort rate --threads 100 --save /etc/pacman.d/mirrorlist'
 
 alias w='/home/vijay/git/dot/.config/unsplash.sh'
 
@@ -86,7 +88,6 @@ dotAuto() {
         for file in $addfs
         do
             echo $file
-            sleep 1
             dot add "$file"
         done
         sleep 1
@@ -113,7 +114,7 @@ gitAuto() {
 	add=$1
 	com=$2
 	echo "Add-file: " $add
-	echo "Comm-msg: " $com 
+	echo "Comm-msg: " $com
 	sleep 2
 	git add $add
 	git commit -m "$com $(date)"

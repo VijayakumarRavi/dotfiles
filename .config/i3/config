@@ -35,8 +35,8 @@ for_window [class="^.*"] border pixel o
 hide_edge_borders smart
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
-#bindsym $mod+Return exec --no-startup-id alacritty
-bindsym $mod+Return exec st 
+bindsym $mod+Return exec --no-startup-id alacritty
+# bindsym $mod+Return exec st 
 
 # kill focused window
 bindsym $mod+q kill
@@ -261,10 +261,10 @@ bindsym $mod+F4 exec rofi -show filebrowser
 bindsym $mod+r exec alacritty -e ranger
 bindsym $mod+w exec firefox
 bindsym $mod+e exec brave
-bindsym $mod+s exec spotify
+bindsym $mod+Shift+q exec system_action
 
 # Keybinds for dmenu and other scripts
-bindsym $mod+Shift+q exec ~/.config/i3/scripts/nextworkspace
+bindsym $mod+Shift+n exec ~/.config/i3/scripts/nextworkspace
 bindsym $mod+Shift+F7 exec ~/.config/i3/scripts/record
 bindsym $mod+Shift+F8 exec ~/.config/i3/scripts/wifi
 bindsym $mod+Shift+F9 exec ~/.config/i3/scripts/search
