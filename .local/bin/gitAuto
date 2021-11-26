@@ -4,11 +4,12 @@ dotAuto() {
     if [[ -n "$@" ]] ; then	
         for file in $@
         do
-            echo $file
             $dot add "$file"
+            printf "Added: $file"
         done
-        sleep 1
-        $dot commit -m "$(date)"
+        printf "\nCommit msg: $com"
+        sleep 2
+        $dot commit -m "$com"
         $dot push origin
         printf "\e[1;32m\n\nPending files \n\n\e[0m"
         printf "\e[1;35m"
@@ -17,23 +18,24 @@ dotAuto() {
         addfs=$($dot ls-files -m)
         for file in $addfs
         do
-            echo $file
+            printf "Adding: $file"
             sleep 1
             $dot add "$file"
         done
-        sleep 1
-        $dot commit -m "$(date)"
+        printf "\nCommit msg: $com"
+        sleep 2
+        $dot commit -m "$com"
         $dot push origin
     fi
 }
 
 gitauto() {
 	add=$@
-	echo "Add-file: " $add
-	echo "Comm-msg: " $com
+	echo "Added: " $add
+	echo "Commit msg: " $com
 	sleep 2
 	git add $add
-	git commit -m "$com $(date)"
+	git commit -m "$com"
 	git push origin
 	printf "\e[1;32m\n\nPending files \n\n\e[0m"
 	printf "\e[1;35m"
@@ -51,23 +53,26 @@ EXAMPLE:\n\tgitAuto -g (or) gitAuto -g (commit msg) (add files)\t#for normal git
 \tgitAuto -d (or) gitAuto -d (add files)\t\t\t#for normal dotfiles repo"
 elif [ "$1" == "-d" ]; then
     if [[ -n "$2" ]]; then
+        com="$2 $(date)"
         dotAuto $2
     else
+        com=$(date)
         dotAuto
     fi
 elif [ "$1" == "-g" ]; then
     if [[ -n "$2" ]]; then
-        com=$2
+        com="$2 $(date)"
         gitauto $3
     else
-        gitauto
+        com=$(date)
+        gitauto $(git ls-files -m)
     fi
 else
     printf "\nAutomated commend to manage your dotfiles bare repo\n\
 It commits the changes and push them to Github.com\n\n\
 OPTIONS:\n\t-g  ->  git repo\n\t-d  ->  dotfiles repo\n\
 USAGE:\n\tgitAuto [option] \"filename1 filename2\"\e[0m\n\
-EXAMPLE:\n\tgitAuto -g (or) gitAuto -g (commit msg) (add files)\t#for normal git repo\n\
-\tgitAuto -d (or) gitAuto -d (add files)\t\t\t#for normal dotfiles repo"
+EXAMPLES:\n\tgitAuto -g (or) gitAuto -g [commit msg] \"add files\"\t#for normal git repo\n\
+\tgitAuto -d (or) gitAuto -d [commit msg] \"add files\"\t#for normal dotfiles repo"
 fi
 
