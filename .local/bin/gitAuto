@@ -1,78 +1,50 @@
 #!/bin/bash
 
-dotAuto() {
-    if [[ -n "$@" ]] ; then	
-        for file in $@
-        do
-            $dot add "$file"
-            echo "Added: $file"
-        done
-        echo "Commit msg: $com"
-        sleep 2
-        $dot commit -m "$com"
-        $dot push origin
-        printf "\e[1;32m\n\nPending files \n\n\e[0m"
-        printf "\e[1;35m"
-        $dot ls-files -m
-    else
-        addfs=$($dot ls-files -m)
-        for file in $addfs
-        do
-            echo "Adding: $file"
-            sleep 1
-            $dot add "$file"
-        done
-        echo "Commit msg: $com"
-        sleep 2
-        $dot commit -m "$com"
-        $dot push origin
-    fi
-}
-
 gitauto() {
-	add=$@
-	echo "Added: " $add
-	echo "Commit msg: " $com
+    if [[ -z $addfiles ]]; then addfiles="$($prg ls-files -m)"; fi
+    if [[ -z $commitmsg ]]; then commitmsg="$(date)"; else commitmsg="$commitmsg $(date)"; fi
+	echo "Added:" $addfiles
+	echo "Commit msg:" $commitmsg
 	sleep 2
-	git add $add
-	git commit -m "$com"
-	git push origin
+	$prg add $addfiles
+	$prg commit -m "$commitmsg"
+	$prg push origin
 	printf "\e[1;32m\n\nPending files \n\n\e[0m"
 	printf "\e[1;35m"
-	git ls-files -m
+	$prg ls-files -m
 }
 
-dot="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
-
-if [ "$1" == "-h" ]; then
-    printf "\nAutomated commend to manage your dotfiles bare repo\n\
-It commits the changes and push them to Github.com\n\n\
-OPTIONS:\n\t-g  ->  git repo\n\t-d  ->  dotfiles repo\n\
-USAGE:\n\tgitAuto [option] \"filename1 filename2\"\e[0m\n\
-EXAMPLE:\n\tgitAuto -g (or) gitAuto -g (commit msg) (add files)\t#for normal git repo\n\
-\tgitAuto -d (or) gitAuto -d (add files)\t\t\t#for normal dotfiles repo"
-elif [ "$1" == "-d" ]; then
-    if [[ -n "$2" ]]; then
-        com="$2 $(date)"
-        dotAuto $3
-    else
-        com=$(date)
-        dotAuto
-    fi
-elif [ "$1" == "-g" ]; then
-    if [[ -n "$2" ]]; then
-        com="$2 $(date)"
-        gitauto $3
-    else
-        com=$(date)
-        gitauto $(git ls-files -m)
-    fi
-else
+# dot="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+usage() {
     printf "\nAutomated commend to manage your dotfiles bare repo\n\
 It commits the changes and push them to Github.com\n\n\
 OPTIONS:\n\t-g  ->  git repo\n\t-d  ->  dotfiles repo\n\
 USAGE:\n\tgitAuto [option] \"filename1 filename2\"\e[0m\n\
 EXAMPLES:\n\tgitAuto -g (or) gitAuto -g [commit msg] \"add files\"\t#for normal git repo\n\
-\tgitAuto -d (or) gitAuto -d [commit msg] \"add files\"\t#for normal dotfiles repo"
-fi
+\tgitAuto -d (or) gitAuto -d [commit msg] \"add files\"\t#for dotfiles repo" 1>&2;
+    exit 1>&2; }
 
+while getopts ":gda:c:" o; do
+    case "${o}" in
+        a)
+            addfiles=${OPTARG}
+            ;;
+        c)
+            commitmsg=${OPTARG}
+            ;;
+        g)
+            prg="git" && gitauto
+            ;;
+        d)
+            prg="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME" && gitauto
+            ;;
+        ?)
+            usage
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [ -n "${a}" ] || [ -n "${c}" ]; then
+    usage
+fi
