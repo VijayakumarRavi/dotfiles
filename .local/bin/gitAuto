@@ -5,9 +5,9 @@ dotAuto() {
         for file in $@
         do
             $dot add "$file"
-            printf "Added: $file"
+            echo "Added: $file"
         done
-        printf "\nCommit msg: $com"
+        echo "Commit msg: $com"
         sleep 2
         $dot commit -m "$com"
         $dot push origin
@@ -18,11 +18,11 @@ dotAuto() {
         addfs=$($dot ls-files -m)
         for file in $addfs
         do
-            printf "Adding: $file"
+            echo "Adding: $file"
             sleep 1
             $dot add "$file"
         done
-        printf "\nCommit msg: $com"
+        echo "Commit msg: $com"
         sleep 2
         $dot commit -m "$com"
         $dot push origin
