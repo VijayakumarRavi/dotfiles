@@ -163,35 +163,70 @@ gaps outer 3
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-    status_command i3status -c ~/.config/i3/i3status.conf
-	#status_command i3blocks -c ~/.config/i3/i3blocks.conf
-	i3bar_command i3bar -t
-	font pango:Mono Sans Bold 12
-	# tray_output none
-	#height 18
-	colors {
-		#background #20242c
-		background #00000000
-		statusline #4c7899
-		separator #4c7899
+#  bar {
+#      status_command i3status -c ~/.config/i3/i3status.conf
+#  	#status_command i3blocks -c ~/.config/i3/i3blocks.conf
+#  	i3bar_command i3bar -t
+#  	font pango:Mono Sans Bold 12
+#  	# tray_output none
+#  	height 18
+#  	colors {
+#  		#background #20242c
+#  		background #00000000
+#  		statusline #bd93f9
+#  		separator #4c7899
+#  
+#              focused_workspace  #00000000 #bd93f9   #50fa7b
+#  	        active_workspace   #00000000 #00000000 #ffffff
+#          	inactive_workspace #00000000 #00000000 #888888
+#      		urgent_workspace   #00000000 #00000000 #900000
+#          	binding_mode       #00000000 #00000000 #900000
+#  	}
+#  }
 
-		focused_workspace  #00000000 #4c7899   #ffffff
-	        active_workspace   #00000000 #00000000 #ffffff
-        	inactive_workspace #00000000 #00000000 #888888
-      		urgent_workspace   #00000000 #00000000 #900000
-        	binding_mode       #00000000 #00000000 #900000
-	}
-}
 
-#colours
-# class                 border  backgr. text    indicator
-client.focused          #4c7899 #285577 #ffffff #285577
-client.focused_inactive #333333 #5f676a #ffffff #484e50
-client.unfocused        #333333 #222222 #888888 #292d2e
-client.urgent           #2f343a #900000 #ffffff #900000
-client.placeholder      #000000 #0c0c0c #ffffff #000000
-client.background       #ffffff
+# Color palette used for the terminal ( ~/.Xresources file )
+# Colors are gathered based on the documentation:
+# https://i3wm.org/docs/userguide.html#xresources
+# Change the variable name at the place you want to match the color
+# of your terminal like this:
+# [example]
+# If you want your bar to have the same background color as your 
+# terminal background change the line 362 from:
+# background #14191D
+# to:
+# background $term_background
+# Same logic applied to everything else.
+set_from_resource $term_background background
+set_from_resource $term_foreground foreground
+set_from_resource $term_color0     color0
+set_from_resource $term_color1     color1
+set_from_resource $term_color2     color2
+set_from_resource $term_color3     color3
+set_from_resource $term_color4     color4
+set_from_resource $term_color5     color5
+set_from_resource $term_color6     color6
+set_from_resource $term_color7     color7
+set_from_resource $term_color8     color8
+set_from_resource $term_color9     color9
+set_from_resource $term_color10    color10
+set_from_resource $term_color11    color11
+set_from_resource $term_color12    color12
+set_from_resource $term_color13    color13
+set_from_resource $term_color14    color14
+set_from_resource $term_color15    color15
+
+# Theme colors
+# class                   border  backgr. text    indic.   child_border
+client.focused          #556064 #556064 #80FFF9 #FDF6E3
+client.focused_inactive #2F3D44 #2F3D44 #AD69AF #454948
+client.unfocused        #2F3D44 #2F3D44 #AD69AF #454948
+client.urgent           #CB4B16 #FDF6E3 #AD69AF #268BD2
+client.placeholder      #000000 #0c0c0c #ffffff #000000 
+
+client.background       #2B2C2B
+
+
 
 # autostart
 exec --no-startup-id nitrogen --restore

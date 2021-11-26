@@ -57,7 +57,7 @@ alias r='ranger'
 alias ~='cd ~'
 alias .='cd -'
 alias ..='cd ..'
-alias ...='cd ..; cd ..'
+alias ...='cd ../..'
 alias n='nvim'
 alias sn='sudo nvim'
 
