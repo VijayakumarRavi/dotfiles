@@ -15,12 +15,13 @@ gitauto() {
 }
 
 usage() {
-    printf "\nAutomated commend to manage your dotfiles bare repo\n\
+    printf "\nAutomated script to manage your git repos\n\
 It commits the changes and push them to Github.com\n\n\
 OPTIONS:\n\t-g  ->  git repo\n\t-d  ->  dotfiles repo\n\
-USAGE:\n\tgitAuto [option] \"filename1 filename2\"\e[0m\n\
-EXAMPLES:\n\tgitAuto -g (or) gitAuto -g [commit msg] \"add files\"\t#for normal git repo\n\
-\tgitAuto -d (or) gitAuto -d [commit msg] \"add files\"\t#for dotfiles repo" 1>&2;
+\t-a  ->  files to repo\n\t-c  ->  commit message\n\
+USAGE:\n\tgitAuto [type] [Args] \"filename1 filename2\"\e[0m\n\
+EXAMPLES:\n\tgitAuto -g (or) gitAuto -g -c \"[commit msg]\" -a \"add files\"\t#for normal git repo\n\
+\tgitAuto -d (or) gitAuto -d -c \"[commit msg]\" -a \"add files\"\t#for dotfiles repo" 1>&2;
     exit 1>&2; }
 
 while getopts ":gda:c:" o; do
@@ -32,10 +33,10 @@ while getopts ":gda:c:" o; do
             commitmsg=${OPTARG}
             ;;
         g)
-            prg="git" && gitauto
+            prg="git"
             ;;
         d)
-            prg="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME" && gitauto
+            prg="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
             ;;
         ?)
             usage
@@ -44,6 +45,7 @@ while getopts ":gda:c:" o; do
 done
 shift $((OPTIND-1))
 
-if [ -n "${a}" ] || [ -n "${c}" ]; then
+if [ -n "${a}" ] || [ -n "${c}" ] || [ -z "${prg}" ]; then
     usage
 fi
+gitauto
