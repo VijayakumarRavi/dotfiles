@@ -14,7 +14,6 @@ gitauto() {
 	$prg ls-files -m
 }
 
-# dot="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 usage() {
     printf "\nAutomated commend to manage your dotfiles bare repo\n\
 It commits the changes and push them to Github.com\n\n\
