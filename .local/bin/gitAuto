@@ -54,7 +54,7 @@ EXAMPLE:\n\tgitAuto -g (or) gitAuto -g (commit msg) (add files)\t#for normal git
 elif [ "$1" == "-d" ]; then
     if [[ -n "$2" ]]; then
         com="$2 $(date)"
-        dotAuto $2
+        dotAuto $3
     else
         com=$(date)
         dotAuto
