@@ -54,8 +54,7 @@ alias q='exit'
 alias :q='exit'
 alias c='clear'
 alias r='ranger'
-alias ~='cd ~'
-alias .='cd -'
+alias ,,='cd -'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias n='nvim'
@@ -70,6 +69,7 @@ alias notes='nvim ~/.notes.txt'
 
 alias p='sudo pacman'
 alias y='yay'
+alias unlock='sudo rm /var/lib/pacman/db.lck'    # remove pacman lock
 alias orphan='sudo pacman -Rs $(pacman -Qqtd)' # Removes orphan packages
 alias mirrorlist='sudo cp -v "/etc/pacman.d/mirrorlist" "/etc/pacman.d/mirrorlist.backup" && sudo reflector --sort rate --threads 100 --save /etc/pacman.d/mirrorlist'
 
@@ -80,49 +80,49 @@ alias gs='git status'
 alias gc='git clone --depth=1'
 alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
-dotAuto() {
-    if [ "$1" == "-h" ]; then
-        printf "\nAutomated commend to manage your dotfiles bare repo\nIt commits the changes and push them to Github.com\n\n USAGE:\n\tdotAuto \"filename1 filename2\"\e[0m"
-    elif [[ -n "$1" ]] && [[ "$1" != "-h" ]]; then	
-        addfs=$1
-        for file in $addfs
-        do
-            echo $file
-            dot add "$file"
-        done
-        sleep 1
-        dot commit -m "$(date)"
-        dot push origin
-        printf "\e[1;32m\n\nPending files \n\n\e[0m"
-        printf "\e[1;35m"
-        dot ls-files -m
-    else
-        addfs=$(dot ls-files -m)
-        for file in $addfs
-        do
-            echo $file
-            sleep 1
-            dot add "$file"
-        done
-        sleep 1
-        dot commit -m "$(date)"
-        dot push origin
-    fi
-}
-
-gitAuto() {
-	add=$1
-	com=$2
-	echo "Add-file: " $add
-	echo "Comm-msg: " $com
-	sleep 2
-	git add $add
-	git commit -m "$com $(date)"
-	git push origin
-	printf "\e[1;32m\n\nPending files \n\n\e[0m"
-	printf "\e[1;35m"
-	git ls-files -m
-}
+#  dotAuto() {
+#      if [ "$1" == "-h" ]; then
+#          printf "\nAutomated commend to manage your dotfiles bare repo\nIt commits the changes and push them to Github.com\n\n USAGE:\n\tdotAuto \"filename1 filename2\"\e[0m"
+#      elif [[ -n "$1" ]] && [[ "$1" != "-h" ]]; then	
+#          addfs=$1
+#          for file in $addfs
+#          do
+#              echo $file
+#              dot add "$file"
+#          done
+#          sleep 1
+#          dot commit -m "$(date)"
+#          dot push origin
+#          printf "\e[1;32m\n\nPending files \n\n\e[0m"
+#          printf "\e[1;35m"
+#          dot ls-files -m
+#      else
+#          addfs=$(dot ls-files -m)
+#          for file in $addfs
+#          do
+#              echo $file
+#              sleep 1
+#              dot add "$file"
+#          done
+#          sleep 1
+#          dot commit -m "$(date)"
+#          dot push origin
+#      fi
+#  }
+#  
+#  gitAuto() {
+#  	add=$1
+#  	com=$2
+#  	echo "Add-file: " $add
+#  	echo "Comm-msg: " $com
+#  	sleep 2
+#  	git add $add
+#  	git commit -m "$com $(date)"
+#  	git push origin
+#  	printf "\e[1;32m\n\nPending files \n\n\e[0m"
+#  	printf "\e[1;35m"
+#  	git ls-files -m
+#  }
 
 # youtube-dl
 alias yta='youtube-dl --extract-audio --audio-format best'
